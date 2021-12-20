@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::805392809179:role/eksNodeRole
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+   
+  mapUsers: |
+    - userarn: arn:aws:iam::805392809179:user/harshad.n@minfytech.com
+      username: harshad.n@minfytech.com
+      groups:
+        - system:masters
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2021-12-02T06:31:28Z"
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:data: {}
+    manager: vpcLambda
+    operation: Update
+    time: "2021-12-02T06:31:28Z"
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:data:
+        f:mapUsers: {}
+    manager: kubectl-edit
+    operation: Update
+    time: "2021-12-02T12:49:32Z"
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:data:
+        f:mapRoles: {}
+    manager: kubectl
+    operation: Update
+    time: "2021-12-02T18:14:52Z"
+  name: aws-auth
+  namespace: kube-system
+  resourceVersion: "148854"
+  uid: 3e9f572b-8ca3-4a8b-9366-be03e0483db7

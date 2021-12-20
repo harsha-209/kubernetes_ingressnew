@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myjava-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      env: production-frontend
+  template:
+    metadata:
+      name: myfrontend-pod
+      labels:
+        env: production-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: 805392809179.dkr.ecr.ap-south-1.amazonaws.com/nodre:2021-12-02.12.45.01.a2d1892b
+        ports:
+        - containerPort: 8080
+        env:
+        - name: RDS_HOSTNAME
+          value: "noreapp.cyiljkqadslp.ap-south-1.rds.amazonaws.com"
+        - name: RDS_PORT
+          value: "3306"
+        - name: RDS_DB_NAME
+          value: "mydbldb"
+        - name: RDS_USERNAME
+          value: "admin"
+        - name: RDS_PASSWORD
+          value: "admin123"
+

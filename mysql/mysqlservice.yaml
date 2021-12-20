@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-mysql
+spec:
+  selector:
+    env: production-db
+  ports:
+  - port: 3306

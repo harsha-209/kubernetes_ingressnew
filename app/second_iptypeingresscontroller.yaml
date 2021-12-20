@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-sample-java-db2
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/subnets: subnet-9f714df7,subnet-a49af8e8,subnet-3374c048
+#    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTP": 8080}]'
+    alb.ingress.kubernetes.io/success-codes: 200-499
+#    alb.ingress.kubernetes.io/forward-rule: '8080'
+#    alb.ingress.kubernetes.io/actions.forward-rule: >
+#      {"type":"forward","forwardConfig":{"targetGroups":[{"serviceName":"mydb-service","servicePort":"8080"}]}}
+#    alb.ingress.kubernetes.io/actions.mydb-service: >
+#      {"type":"forward","forwardConfig":{"targetGroups":[{"serviceName":"mydb-service","servicePort":8080,"weight":100}]}}
+
+ #   alb.ingress.kubernetes.io/actions.nginx-service: |
+ #       {"Type":"forward","ForwardConfig":{"TargetGroups":[{"ServiceName":"nginx-service","ServicePort":"8080"}]}}
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: nginx-service
+              servicePort: 80
